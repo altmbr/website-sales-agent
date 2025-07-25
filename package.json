@@ -1,0 +1,10 @@
+{
+  "name": "website-sales-agent",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.0"
+  }
+}

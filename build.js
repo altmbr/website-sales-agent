@@ -8,7 +8,7 @@ if (!fs.existsSync('public')) {
 }
 
 // Copy all files to public directory
-const files = ['index.html', 'styles.css', 'script.js', 'vapi-agent.js', 'vapi-integration.js'];
+const files = ['index.html', 'styles.css', 'script.js', 'vapi-agent.js', 'vapi-integration.js', 'call-ux-analysis.md'];
 files.forEach(file => {
     if (fs.existsSync(file)) {
         fs.copyFileSync(file, path.join('public', file));

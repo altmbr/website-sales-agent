@@ -1,6 +1,7 @@
 // Simple build script to inject environment variables
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config();
 
 // Create public directory
 if (!fs.existsSync('public')) {

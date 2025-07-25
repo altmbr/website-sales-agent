@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landbase Marketing Lander</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Landbase Marketing Lander</h1>
+                <p>Welcome to our simple marketing page.</p>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Call notification bubble -->
+    <div id="callBubble" class="call-bubble hidden">
+        <div class="call-content">
+            <div class="call-avatar">📞</div>
+            <span class="call-text">John from Landbase is calling</span>
+            <div class="call-actions">
+                <button id="answerCall" class="answer-btn">Answer</button>
+                <button id="declineCall" class="decline-btn">✕</button>
+            </div>
+        </div>
+    </div>
+    
+    
+    <script src="config.js"></script>
+    <script src="vapi-agent.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

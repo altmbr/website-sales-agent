@@ -19,7 +19,7 @@ files.forEach(file => {
 const configTemplate = `// Configuration - injected at build time
 window.Config = {
     VAPI_PUBLIC_KEY: '${process.env.VAPI_PUBLIC_KEY}',
-    VAPI_ASSISTANT_ID: '${process.env.VAPI_ASSISTANT_ID}'
+    VAPI_WORKFLOW_ID: '${process.env.VAPI_WORKFLOW_ID}'
 };`;
 
 fs.writeFileSync(path.join('public', 'config.js'), configTemplate);

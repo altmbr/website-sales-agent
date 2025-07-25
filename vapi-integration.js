@@ -2,7 +2,7 @@
 class VAPIIntegration {
     constructor() {
         this.publicKey = window.Config?.VAPI_PUBLIC_KEY || '';
-        this.assistantId = window.Config?.VAPI_ASSISTANT_ID || '';
+        this.workflowId = window.Config?.VAPI_WORKFLOW_ID || '';
         this.vapi = null;
     }
 
@@ -46,8 +46,8 @@ class VAPIIntegration {
                 console.error('VAPI error:', error);
             });
 
-            // Start the call with assistant ID
-            await this.vapi.start(this.assistantId);
+            // Start the call with workflow ID
+            await this.vapi.start(this.workflowId);
             
             return true;
         } catch (error) {

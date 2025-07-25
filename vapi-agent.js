@@ -14,7 +14,7 @@
         window.VAPIAgent = class {
             constructor() {
                 this.publicKey = window.Config?.VAPI_PUBLIC_KEY || '';
-                this.assistantId = window.Config?.VAPI_ASSISTANT_ID || '';
+                this.workflowId = window.Config?.VAPI_WORKFLOW_ID || '';
                 this.vapi = null;
                 this.isCallActive = false;
             }
@@ -24,7 +24,7 @@
                     // Initialize VAPI SDK with default UI
                     this.vapi = window.vapiSDK.run({
                         apiKey: this.publicKey,
-                        assistant: this.assistantId,
+                        workflow: this.workflowId,
                         config: {
                             hideButton: false  // Show VAPI's button after we trigger it
                         }

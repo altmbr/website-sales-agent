@@ -2,16 +2,26 @@
 (function (d, t) {
     var g = document.createElement(t),
         s = d.getElementsByTagName(t)[0];
-    g.src = "https://unpkg.com/@vapi-ai/web@2.2.6/dist/vapi.js";
+    g.src = "https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js";
     g.defer = true;
     g.async = true;
     s.parentNode.insertBefore(g, s);
     
     g.onload = function () {
-        // Initialize VAPI with your credentials
-        window.vapiInstance = null;
+        console.log('VAPI SDK script loaded, waiting for vapiSDK...');
         
-        window.VAPIAgent = class {
+        // Wait for vapiSDK to be available
+        function checkVapiSDK() {
+            if (window.vapiSDK && window.vapiSDK.run) {
+                console.log('vapiSDK is ready');
+                initializeVAPIAgent();
+            } else {
+                setTimeout(checkVapiSDK, 100);
+            }
+        }
+        
+        function initializeVAPIAgent() {
+            window.VAPIAgent = class {
             constructor() {
                 this.publicKey = window.Config?.VAPI_PUBLIC_KEY || '';
                 this.workflowId = window.Config?.VAPI_WORKFLOW_ID || '';
@@ -26,18 +36,14 @@
                         workflowId: this.workflowId
                     });
                     
-                    // Check if Vapi constructor is available
-                    if (!window.Vapi) {
-                        throw new Error('VAPI SDK not loaded. Please try again.');
-                    }
-                    
-                    // Initialize VAPI SDK with public key
-                    this.vapi = new window.Vapi(this.publicKey);
-                    
-                    // Check if vapi was created successfully
-                    if (!this.vapi) {
-                        throw new Error('VAPI instance was not created');
-                    }
+                    // Initialize VAPI SDK with default UI
+                    this.vapi = window.vapiSDK.run({
+                        apiKey: this.publicKey,
+                        workflowId: this.workflowId,
+                        config: {
+                            hideButton: false  // Show VAPI's button after we trigger it
+                        }
+                    });
                     
                     // Set up event listeners
                     this.vapi.on('call-start', () => {
@@ -67,9 +73,10 @@
                         // Don't throw here, just log
                     });
                     
-                    // Start the call with workflow ID
-                    console.log('Starting VAPI call with workflow ID:', this.workflowId);
-                    await this.vapi.start(this.workflowId);
+                    // Start the call automatically
+                    setTimeout(() => {
+                        this.vapi.start();
+                    }, 100);
                     
                     return { success: true };
                 } catch (error) {
@@ -100,9 +107,13 @@
                     duration: 0 // SDK doesn't provide duration directly
                 };
             }
-        };
+            };
+            
+            // Make VAPIAgent available globally
+            console.log('VAPIAgent class defined');
+        }
         
-        // Make VAPIAgent available globally
-        window.VAPIAgent = window.VAPIAgent;
+        // Start checking for vapiSDK
+        checkVapiSDK();
     };
 })(document, "script");

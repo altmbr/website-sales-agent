@@ -3,7 +3,7 @@ let vapiAgent = null;
 
 // Check for VAPIAgent availability
 function waitForVAPI() {
-    if (window.VAPIAgent && window.Vapi) {
+    if (window.VAPIAgent) {
         vapiAgent = new window.VAPIAgent();
         console.log('VAPI Agent initialized');
     } else {

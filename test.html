@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VAPI Test</title>
+</head>
+<body>
+    <h1>VAPI SDK Test</h1>
+    <button onclick="testVAPI()">Test VAPI Loading</button>
+    <div id="status"></div>
+    
+    <script src="config.js"></script>
+    <script src="vapi-agent.js"></script>
+    <script>
+        function updateStatus(msg) {
+            document.getElementById('status').innerHTML += '<p>' + msg + '</p>';
+        }
+        
+        // Check what's loaded
+        setTimeout(() => {
+            updateStatus('Config loaded: ' + (window.Config ? 'YES' : 'NO'));
+            updateStatus('VAPI Public Key: ' + (window.Config?.VAPI_PUBLIC_KEY || 'NOT FOUND'));
+            updateStatus('VAPI Workflow ID: ' + (window.Config?.VAPI_WORKFLOW_ID || 'NOT FOUND'));
+            updateStatus('VAPIAgent available: ' + (window.VAPIAgent ? 'YES' : 'NO'));
+            updateStatus('vapiSDK available: ' + (window.vapiSDK ? 'YES' : 'NO'));
+        }, 2000);
+        
+        function testVAPI() {
+            if (window.VAPIAgent) {
+                const agent = new window.VAPIAgent();
+                agent.createWebCall().then(() => {
+                    updateStatus('Call started successfully!');
+                }).catch(err => {
+                    updateStatus('Error: ' + err.message);
+                });
+            } else {
+                updateStatus('VAPIAgent not loaded yet');
+            }
+        }
+    </script>
+</body>
+</html>

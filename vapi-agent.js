@@ -24,7 +24,7 @@
                     // Initialize VAPI SDK with default UI
                     this.vapi = window.vapiSDK.run({
                         apiKey: this.publicKey,
-                        workflow: this.workflowId,
+                        workflowId: this.workflowId,
                         config: {
                             hideButton: false  // Show VAPI's button after we trigger it
                         }
